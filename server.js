@@ -6,7 +6,7 @@ const https = require('https');
 const cors = require('cors')
 
 const app = express();
-const port = 3000; // Порт, на котором будет запущен ваш сервер
+const port = process.env.PORT || 3000; // Порт, на котором будет запущен ваш сервер
 app.use(cors({
     credentials:true,
     origin: [process.env.CLIENT_URL, 'http://localhost:5173']
