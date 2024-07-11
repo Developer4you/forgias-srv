@@ -58,21 +58,20 @@ const port = process.env.PORT || 3000; // Порт, на котором буде
 // Обработчик GET запроса на сервере для получения данных и их отправки клиенту
 app.get('/api/getData', async (req, res) => {
     try {
-        // const { contextTextSearch } = req.query;
-        //
-        // if (!contextTextSearch) {
-        //     return res.status(400).json({ error: 'contextTextSearch parameter is required' });
-        // }
-        //
-        // // Выполняем функцию fetchPurchasesData для получения данных
+        const { contextTextSearch } = req.query;
+
+        if (!contextTextSearch) {
+            return res.status(400).json({ error: 'contextTextSearch parameter is required' });
+        }
+
+        // Выполняем функцию fetchPurchasesData для получения данных
+        const dataFromGias = ['rrr','ttt','yyy'];
         // const dataFromGias = await fetchPurchasesData(contextTextSearch);
         // Отправляем данные обратно клиенту
-        // res.json(dataFromGias);
-        res.json({1:1});
+        res.json(dataFromGias);
     } catch (error) {
         // В случае ошибки отправляем статус 500 и сообщение об ошибке
-        // res.status(500).json({ error: error.message });
-        res.status(500).json({ error: 'error.message' });
+        res.status(500).json({ error: error.message });
     }
 });
 
