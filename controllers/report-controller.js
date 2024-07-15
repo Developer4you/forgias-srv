@@ -169,6 +169,18 @@ class ReportController {
             next(e)
         }
     }
+
+    async getSuppliers(req, res, next) {
+        try {
+            console.log(req.user._id)
+            if (req.user.id !== '651ab5970f890c6038a95a47') throw ApiError.BadRequest('Пользователь не имеет прав доступа')
+            const resData = await reportService.getAllReports()
+            console.log(resData)
+            return res.json(resData)
+        } catch (e) {
+            next(e)
+        }
+    }
 }
 
 module.exports = new ReportController()
