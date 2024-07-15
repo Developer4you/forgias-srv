@@ -14,15 +14,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
     credentials:true,
-    origin: function (origin, callback) {
-        console.log('Origin:', origin); // Логирование
-        if (!origin || [process.env.CLIENT_URL, process.env.CLIENT2_URL].includes(origin)) {
-            callback(null, true)
-        } else {
-            console.log('Blocked by CORS:', origin); // Логирование
-            callback(new Error('Not allowed by CORS'))
-        }
-    }
+    origin: [process.env.CLIENT_URL, process.env.CLIENT2_URL]
 }))
 app.use('/api', router)
 app.use(errorMiddleware)
