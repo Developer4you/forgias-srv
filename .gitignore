@@ -6,5 +6,5 @@
 
 # misc
 .idea/
-
+.env
 .DS_Store
