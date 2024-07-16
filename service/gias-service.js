@@ -19,7 +19,7 @@ async function fetchContractData(id) {
 }
 
 // Функция для выполнения POST-запроса к сайту gias.by и возврата данных
-export async function fetchPurchasesData(textSearch) {
+async function fetchPurchasesData(textSearch) {
     try {
         const response = await instance.post('https://www.gias.by/search/api/v1/search/purchases', {
             page: 0,
