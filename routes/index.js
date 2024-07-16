@@ -2,11 +2,9 @@ const Router = require('express')
 const router = new Router()
 const userController = require('../controllers/user-controller')
 const reportController = require('../controllers/report-controller')
-const giasService = require('../service/gias-service');
-const GiasController = require('../controllers/gias-controller')
+const giasController = require('../controllers/gias-controller')
 const {body} = require("express-validator")
 const authMiddleware = require('../middlewaree/authMiddleware')
-const giasController = new GiasController(giasService);
 
 router.post('/registration',
     body('email').isEmail(),

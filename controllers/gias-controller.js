@@ -1,3 +1,4 @@
+const giasService = require('../service/gias-service');
 class GiasController {
     constructor(giasService) {
         this.giasService = giasService;
@@ -19,4 +20,4 @@ class GiasController {
     }
 }
 
-module.exports = GiasController;
+module.exports = new GiasController(giasService);
