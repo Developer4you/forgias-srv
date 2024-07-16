@@ -7,6 +7,7 @@ const tokenService = require("../service/token-service");
 const axios = require('axios');
 const https = require("https");
 const nodemailer = require('nodemailer');
+const {fetchPurchasesData} = require("../service/gias-service");
 
 
 class ReportController {
@@ -172,13 +173,18 @@ class ReportController {
 
     async getSuppliers(req, res, next) {
         try {
-            console.log(req.user._id)
-            if (req.user.id !== '651ab5970f890c6038a95a47') throw ApiError.BadRequest('Пользователь не имеет прав доступа')
-            const resData = await reportService.getAllReports()
-            console.log(resData)
-            return res.json(resData)
-        } catch (e) {
-            next(e)
+            const { contextTextSearch } = req.query;
+            if (!contextTextSearch) {
+                return res.status(400).json({ error: 'contextTextSearch parameter is required' });
+            }
+            // Выполняем функцию fetchPurchasesData для получения данных
+            const dataFromGias = await fetchPurchasesData(contextTextSearch);
+            // Отправляем данные обратно клиенту
+            res.json(dataFromGias);
+
+        } catch (error) {
+            // В случае ошибки отправляем статус 500 и сообщение об ошибке
+            res.status(500).json({ error: error.message });
         }
     }
 }

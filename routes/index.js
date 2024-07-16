@@ -17,7 +17,7 @@ router.get('/users', authMiddleware, userController.getUsers)
 router.post('/report', authMiddleware, reportController.sendReport)
 router.get('/getUserReports', authMiddleware, reportController.getUserReports)
 router.get('/getAllReports', authMiddleware, reportController.getAllReports)
-router.get('/getSuppliers', authMiddleware, reportController.getAllReports)
+router.get('/getSuppliers', authMiddleware, reportController.getSuppliers)
 
 router.post('/emails', authMiddleware, reportController.getEmails)
 router.post('/positions', authMiddleware, reportController.getPlanPositions)
