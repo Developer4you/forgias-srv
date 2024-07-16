@@ -11,7 +11,7 @@ class GiasController {
             if (!contextTextSearch) {
                 return res.status(400).json({ error: 'contextTextSearch parameter is required' });
             }
-
+            console.log('getSuppliers')
             const dataFromGias = await this.giasService.fetchPurchasesData(contextTextSearch);
             res.json(dataFromGias);
         } catch (error) {

@@ -22,6 +22,7 @@ class GiasService {
 
     async fetchPurchasesData(textSearch) {
         try {
+            console.log('fetchPurchasesData')
             const response = await this.instance.post('https://www.gias.by/search/api/v1/search/purchases', {
                 page: 0,
                 pageSize: 100,
