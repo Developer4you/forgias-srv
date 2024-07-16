@@ -1,4 +1,4 @@
-import https from "https";
+const https = require('https');
 const axios = require('axios');
 
 const instance = axios.create({
