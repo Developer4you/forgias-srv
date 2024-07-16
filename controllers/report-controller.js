@@ -7,7 +7,6 @@ const tokenService = require("../service/token-service");
 const axios = require('axios');
 const https = require("https");
 const nodemailer = require('nodemailer');
-const {fetchPurchasesData} = require("../service/gias-service");
 
 
 class ReportController {
