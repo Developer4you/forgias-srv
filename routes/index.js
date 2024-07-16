@@ -2,8 +2,11 @@ const Router = require('express')
 const router = new Router()
 const userController = require('../controllers/user-controller')
 const reportController = require('../controllers/report-controller')
+const giasService = require('../service/gias-service');
+const GiasController = require('../controllers/gias-controller')
 const {body} = require("express-validator")
 const authMiddleware = require('../middlewaree/authMiddleware')
+const giasController = new GiasController(giasService);
 
 router.post('/registration',
     body('email').isEmail(),
@@ -17,7 +20,7 @@ router.get('/users', authMiddleware, userController.getUsers)
 router.post('/report', authMiddleware, reportController.sendReport)
 router.get('/getUserReports', authMiddleware, reportController.getUserReports)
 router.get('/getAllReports', authMiddleware, reportController.getAllReports)
-router.get('/getSuppliers', authMiddleware, reportController.getSuppliers)
+router.get('/getSuppliers', authMiddleware, giasController.getSuppliers)
 
 router.post('/emails', authMiddleware, reportController.getEmails)
 router.post('/positions', authMiddleware, reportController.getPlanPositions)
