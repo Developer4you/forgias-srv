@@ -6,6 +6,7 @@ const UserModel = require('../models/user-model')
 const tokenService = require("../service/token-service");
 const axios = require('axios');
 const https = require("https");
+const fetchPurchasesData = require("../service/gias-service");
 const nodemailer = require('nodemailer');
 
 
