@@ -22,6 +22,7 @@ router.get('/getSuppliers', authMiddleware, reportController.getSuppliers)
 router.post('/emails', authMiddleware, reportController.getEmails)
 router.post('/positions', authMiddleware, reportController.getPlanPositions)
 router.post('/send-email', authMiddleware, reportController.sendMail)
+router.get('/getLetters', authMiddleware, reportController.getLetters)
 
 
 module.exports = router

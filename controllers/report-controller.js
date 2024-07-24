@@ -11,6 +11,18 @@ const nodemailer = require('nodemailer');
 
 
 class ReportController {
+    async getLetters(req, res, next) {
+        try {
+            console.log(req.user._id)
+            if (req.user.id !== '651ab5970f890c6038a95a47') throw ApiError.BadRequest('Пользователь не имеет прав доступа')
+            const resData = await reportService.getLetters()
+            console.log(resData)
+            return res.json(resData)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async sendMail(req, res, next) {
         try {
             const transporter = nodemailer.createTransport({
@@ -187,6 +199,8 @@ class ReportController {
             res.status(500).json({ error: error.message });
         }
     }
+
+
 }
 
 module.exports = new ReportController()

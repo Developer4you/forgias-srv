@@ -6,8 +6,14 @@ const tokenService = require('./token-service')
 const ApiError = require('../exeptions/api-error')
 const UserDto = require("../dtos/user-dto");
 const moment = require('moment');
+const {fetchEmails} = require("./letters-service");
 
 class ReportService {
+    async getLetters() {
+        const currentDate = new Date().toLocaleString();
+        const resData = await fetchEmails()
+        return {resData, date:currentDate}
+    }
     async sendReport(user, report) {
         const currentDate = new Date().toLocaleString();
         const resData = await ReportModel.create({user:user.id, report, date:currentDate})
