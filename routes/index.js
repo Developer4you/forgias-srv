@@ -2,6 +2,7 @@ const Router = require('express')
 const router = new Router()
 const userController = require('../controllers/user-controller')
 const reportController = require('../controllers/report-controller')
+const emailController = require('../controllers/email-controller')
 const {body} = require("express-validator")
 const authMiddleware = require('../middlewaree/authMiddleware')
 
@@ -22,7 +23,7 @@ router.get('/getSuppliers', authMiddleware, reportController.getSuppliers)
 router.post('/emails', authMiddleware, reportController.getEmails)
 router.post('/positions', authMiddleware, reportController.getPlanPositions)
 router.post('/send-email', authMiddleware, reportController.sendMail)
-router.get('/getLetters', authMiddleware, reportController.getLetters)
+router.get('/getLetters', authMiddleware, emailController.getLetters)
 
 
 module.exports = router

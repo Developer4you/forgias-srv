@@ -9,33 +9,25 @@ const https = require("https");
 const fetchPurchasesData = require("../service/gias-service");
 const nodemailer = require('nodemailer');
 
+const mail = process.env.SMTP_USER
+const password = process.env.SMTP_PASSWORD
+const mainUserId = process.env.MAIN_USER_ID
 
 class ReportController {
-    async getLetters(req, res, next) {
-        try {
-            console.log(req.user._id)
-            if (req.user.id !== '651ab5970f890c6038a95a47') throw ApiError.BadRequest('Пользователь не имеет прав доступа')
-            const resData = await reportService.getLetters()
-            console.log(resData)
-            return res.json(resData)
-        } catch (e) {
-            next(e)
-        }
-    }
 
     async sendMail(req, res, next) {
         try {
             const transporter = nodemailer.createTransport({
                 service: 'mail.ru',
                 auth: {
-                    user: 'cmdrgou@mail.ru',
-                    pass: '8X7UBQ8n8SBv340wCxxQ'
+                    user: mail,
+                    pass: password
                 }
             });
 
 // Create mail options
             const mailOptions = {
-                from: 'cmdrgou@mail.ru',
+                from: mail,
                 to: '101market@gomel.mchs.gov.by',
                 // to: '221674@mail.ru',
                 subject: 'Test Email',
@@ -174,7 +166,7 @@ class ReportController {
     async getAllReports(req, res, next) {
         try {
             console.log(req.user._id)
-            if (req.user.id !== '651ab5970f890c6038a95a47') throw ApiError.BadRequest('Пользователь не имеет прав доступа')
+            if (req.user.id !== mainUserId) throw ApiError.BadRequest('Пользователь не имеет прав доступа')
             const resData = await reportService.getAllReports()
             console.log(resData)
             return res.json(resData)
