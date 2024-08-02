@@ -134,8 +134,12 @@ class ReportController {
 
             });
 
-            const array = response.data.split(/[<> ,]/)
-            const responseData = array.filter(e => e.includes('@'))
+            const linkMatches = response.data.match(/<a[^>]*>([^<]+)<\/a>/g);
+            // const array = response.data.split(/[<> ,]/)
+            const links = linkMatches.map(link => link.replace(/<a[^>]*>([^<]+)<\/a>/, '$1'));
+
+            // const responseData = array.filter(e => e.includes('@'))
+            const responseData = array.filter(e => e.includes('«'))
 
             return res.json(responseData);
         } catch (e) {
@@ -146,7 +150,6 @@ class ReportController {
 
     async sendReport(req, res, next) {
         try {
-
             const resData = await reportService.sendReport(req.user, req.body)
             return res.json(resData)
         } catch (e) {
