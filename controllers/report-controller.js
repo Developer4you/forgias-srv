@@ -134,13 +134,21 @@ class ReportController {
 
             });
 
-            const linkMatches = response.data.match(/<a[^>]*>([^<]+)<\/a>/g);
+            const splitData = response.data.split('table')
+            if (splitData.length<33) return res.json('')
+            const responseData = `<table ${splitData[31]} table>`
+            // const linkMatches = response.data.match(/<a[^>]*>([^<]+)<\/a>/g);
+            // console.log('linkMatches', linkMatches[0])
             // const array = response.data.split(/[<> ,]/)
-            const links = linkMatches.map(link => link.replace(/<a[^>]*>([^<]+)<\/a>/, '$1'));
-
-            // const responseData = array.filter(e => e.includes('@'))
-            const responseData = array.filter(e => e.includes('«'))
-
+            // const links = linkMatches.map(link => link.replace(/<a[^>]*>([^<]+)<\/a>/, '$1'));
+            //
+            // const emails = array.filter(e => e.includes('@'))
+            // let companies = links.filter(e => e.includes('«'))
+            // companies = companies.slice(2)
+            // const responseData = []
+            // companies.forEach((e,i)=>{
+            //     responseData.push({company:e, emails:emails[i]})})
+            // console.log('responseData', responseData[0])
             return res.json(responseData);
         } catch (e) {
             next(e);
@@ -168,10 +176,10 @@ class ReportController {
 
     async getAllReports(req, res, next) {
         try {
-            console.log(req.user._id)
+            // console.log(req.user._id)
             if (req.user.id !== mainUserId) throw ApiError.BadRequest('Пользователь не имеет прав доступа')
             const resData = await reportService.getAllReports()
-            console.log(resData)
+            // console.log(resData)
             return res.json(resData)
         } catch (e) {
             next(e)

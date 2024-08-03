@@ -19,7 +19,7 @@ module.exports = function (req, res, next) {
         }
 
         req.user = userData
-        console.log('req.user: ',req.user)
+        // console.log('req.user: ',req.user)
         next()
     } catch (e) {
         return next(ApiError.UnautorizedError())

@@ -35,10 +35,10 @@ class ReportService {
         data.forEach(e => {
             const date = new Date(e.date); // Преобразование строки в объект Date
             const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-            console.log('e.date: ', formattedDate);
+            // console.log('e.date: ', formattedDate);
             const id = departmentsId.indexOf(e.user.toString());
-            console.log('id:', id);
-            console.log('e.user:', e.user.toString());
+            // console.log('id:', id);
+            // console.log('e.user:', e.user.toString());
 
             if (id >= 0) {
                 // Проверяем, существует ли массив для данной даты
