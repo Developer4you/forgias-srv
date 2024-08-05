@@ -190,9 +190,10 @@ class ReportController {
         try {
             console.log('getUnits')
             const dataFromGias = await fetchUnitsData();
-            const transformedArray = dataFromGias.map(item => ({
-                [item.code]: item.name
-            }));
+            let transformedArray = {}
+            dataFromGias.forEach(item => {
+                transformedArray[item.code]=item.name
+            });
             res.json(transformedArray);
         } catch (error) {
             res.status(500).json({ error: error.message });
