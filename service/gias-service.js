@@ -18,6 +18,17 @@ async function fetchContractData(id) {
     }
 }
 
+async function fetchUnitsData() {
+    try {
+        const response = await instance.get(`https://www.gias.by/directory/api/v1/units`);
+
+        return response.data; // Возвращаем данные из запроса
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+        throw error; // Пробрасываем ошибку для дальнейшей обработки
+    }
+}
+
 // Функция для выполнения POST-запроса к сайту gias.by и возврата данных
 async function fetchPurchasesData(textSearch) {
     try {

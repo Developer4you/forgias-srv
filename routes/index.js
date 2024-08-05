@@ -19,6 +19,7 @@ router.post('/report', authMiddleware, reportController.sendReport)
 router.get('/getUserReports', authMiddleware, reportController.getUserReports)
 router.get('/getAllReports', authMiddleware, reportController.getAllReports)
 router.get('/getSuppliers', authMiddleware, reportController.getSuppliers)
+router.get('/getUnits', authMiddleware, reportController.getUnits)
 
 router.post('/emails', authMiddleware, reportController.getEmails)
 router.post('/positions', authMiddleware, reportController.getPlanPositions)

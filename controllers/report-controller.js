@@ -186,6 +186,16 @@ class ReportController {
         }
     }
 
+    async getUnits(req, res, next) {
+        try {
+            console.log('getUnits')
+            const dataFromGias = await this.giasService.fetchUnitsData();
+            res.json(dataFromGias);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
     async getSuppliers(req, res, next) {
         try {
             const { contextTextSearch } = req.query;
