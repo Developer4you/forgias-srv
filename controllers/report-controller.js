@@ -6,7 +6,7 @@ const UserModel = require('../models/user-model')
 const tokenService = require("../service/token-service");
 const axios = require('axios');
 const https = require("https");
-const fetchPurchasesData = require("../service/gias-service");
+const {fetchPurchasesData, fetchUnitsData} = require("../service/gias-service");
 const nodemailer = require('nodemailer');
 
 const mail = process.env.SMTP_USER
@@ -189,7 +189,7 @@ class ReportController {
     async getUnits(req, res, next) {
         try {
             console.log('getUnits')
-            const dataFromGias = await this.giasService.fetchUnitsData();
+            const dataFromGias = await fetchUnitsData();
             res.json(dataFromGias);
         } catch (error) {
             res.status(500).json({ error: error.message });

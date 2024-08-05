@@ -56,4 +56,4 @@ async function fetchPurchasesData(textSearch) {
     }
 }
 
-module.exports = fetchPurchasesData;
+module.exports = {fetchPurchasesData, fetchUnitsData};
