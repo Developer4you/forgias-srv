@@ -105,7 +105,6 @@ class ReportController {
 
     async getEmails(req, res, next) {
         try {
-
             const apiUrl = 'https://icetrade.by/producers/search';
             const queryParams = {
                 company: '',
@@ -154,7 +153,6 @@ class ReportController {
             next(e);
         }
     }
-
 
     async sendReport(req, res, next) {
         try {
@@ -211,6 +209,25 @@ class ReportController {
             // Отправляем данные обратно клиенту
             res.json(dataFromGias);
 
+        } catch (error) {
+            // В случае ошибки отправляем статус 500 и сообщение об ошибке
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    async getCodeName(req, res, next) {
+        try {
+            const { code } = req.query;
+            if (!code) {
+                return res.status(400).json({ error: 'contextTextSearch parameter is required' });
+            }
+            const referenceData = req.referenceData;
+            const entry = referenceData.find(item => item.code === code);
+            if (entry) {
+                res.json({ name: entry.name });
+            } else {
+                res.status(404).json({ error: 'Code not found' });
+            }
         } catch (error) {
             // В случае ошибки отправляем статус 500 и сообщение об ошибке
             res.status(500).json({ error: error.message });

@@ -16,6 +16,24 @@ app.use(cors({
     credentials:true,
     origin: [process.env.CLIENT_URL, process.env.CLIENT2_URL]
 }))
+
+let referenceData = [];
+const loadReferenceData = async () => {
+    try {
+        const response = await axios.get('https://gias.by/directory/api/v1/economic_activity');
+        referenceData = response.data;
+        console.log('Reference data loaded');
+    } catch (error) {
+        console.error('Error loading reference data:', error);
+    }
+};
+loadReferenceData();
+setInterval(loadReferenceData, 24 * 60 * 60 * 7 * 1000);
+
+app.use((req, res, next) => {
+    req.referenceData = referenceData;
+    next();
+});
 app.use('/api', router)
 app.use(errorMiddleware)
 
