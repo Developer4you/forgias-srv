@@ -218,6 +218,7 @@ class ReportController {
     async getCodeName(req, res, next) {
         try {
             const { code } = req.query;
+            console.log('codeOKRB', code);
             if (!code) {
                 return res.status(400).json({ error: 'contextTextSearch parameter is required' });
             }
