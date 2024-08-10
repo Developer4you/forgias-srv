@@ -4,6 +4,7 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
 const router = require('./routes/index')
+const axios = require('axios');
 const errorMiddleware = require('./middlewaree/error-middleware')
 
 const  PORT = process.env.PORT || 5000
@@ -29,11 +30,20 @@ const loadReferenceData = async () => {
 };
 loadReferenceData();
 setInterval(loadReferenceData, 24 * 60 * 60 * 7 * 1000);
-
-app.use((req, res, next) => {
+const waitForData = async (req, res, next) => {
+    if (referenceData.length === 0) {
+        console.log('Reference data is empty, waiting for data to load...');
+        try {
+            await loadReferenceData(); // Загружаем данные, если они еще не были загружены
+        } catch (error) {
+            return res.status(500).json({ message: 'Failed to load reference data' });
+        }
+    }
     req.referenceData = referenceData;
     next();
-});
+};
+
+app.use(waitForData);
 app.use('/api', router)
 app.use(errorMiddleware)
 

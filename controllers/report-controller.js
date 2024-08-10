@@ -218,7 +218,6 @@ class ReportController {
     async getCodeName(req, res, next) {
         try {
             const { code } = req.query;
-            console.log('codeOKRB', code);
             if (!code) {
                 return res.status(400).json({ error: 'contextTextSearch parameter is required' });
             }
@@ -230,7 +229,6 @@ class ReportController {
                 res.status(404).json({ error: 'Code not found' });
             }
         } catch (error) {
-            // В случае ошибки отправляем статус 500 и сообщение об ошибке
             res.status(500).json({ error: error.message });
         }
     }
