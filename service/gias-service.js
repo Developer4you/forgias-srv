@@ -39,9 +39,7 @@ async function fetchPurchasesData(textSearch) {
             sortField: 'dtCreate',
             sortOrder: 'DESC',
         });
-        const contractsId = response.data.content
-            .filter(e => e.stateName === 'Договор подписан')
-            .map(e => e.purchaseGiasId);
+        const contractsId = response.data.content.filter(e => e.stateName === 'Договор подписан').map(e => e.purchaseGiasId);
 
         // Создаем массив промисов для каждого запроса на данные по договору
         const contractPromises = contractsId.map(e => fetchContractData(e));

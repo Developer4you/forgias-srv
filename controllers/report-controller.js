@@ -217,14 +217,18 @@ class ReportController {
 
     async getCodeName(req, res, next) {
         try {
-            const { code } = req.query;
-            if (!code) {
-                return res.status(400).json({ error: 'contextTextSearch parameter is required' });
-            }
+            const { codes } = req.body;
+            console.log('codes',codes)
+            // if (!code) {
+            //     return res.status(400).json({ error: 'contextTextSearch parameter is required' });
+            // }
             const referenceData = req.referenceData;
-            const entry = referenceData.find(item => item.code === code);
+            console.log('2')
+            const entry = codes.map(e=>{return {codeOKRB:e, nameOKRB: referenceData.find(item => item.code === e).name}})
+            console.log('3')
+            console.log('entry', entry)
             if (entry) {
-                res.json({ name: entry.name });
+                res.json(entry);
             } else {
                 res.status(404).json({ error: 'Code not found' });
             }
